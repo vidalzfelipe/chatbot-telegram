@@ -1,0 +1,133 @@
+services:
+  n8n: 
+    container_name: n8n-editor
+    image: n8nio/n8n:1.51.2
+    ports:
+      - 5678:5678
+    volumes:
+      - ./n8n-data:/home/node/.n8n
+    environment:
+      - GENERIC_TIMEZONE=America/Salvador
+      - TZ=America/Salvador
+     # - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+      - N8N_RUNNERS_ENABLED=true
+      - N8N_HOST=unspotlighted-receptively-pearle.ngrok-free.dev
+      - N8N_PROTOCOL=https
+      - WEBHOOK_URL=https://unspotlighted-receptively-pearle.ngrok-free.dev
+
+      ## Postgres
+      - DB_TYPE=postgresdb 
+      - DB_POSTGRESDB_DATABASE=postgres 
+      - DB_POSTGRESDB_HOST=postgres-db 
+      - DB_POSTGRESDB_PORT=5432 
+      - DB_POSTGRESDB_USER=postgres 
+      - DB_POSTGRESDB_PASSWORD=postgres
+
+      ## Queue Mode
+      - EXECUTIONS_MODE=queue
+      - QUEUE_BULL_REDIS_HOST=redis-db
+      - OFFLOAD_MANUAL_EXECUTIONS_TO_WORKERS=true
+    networks:
+      - conexao-n8n
+    depends_on:
+      - postgres-db
+      - redis-db
+    restart: always
+
+  n8n-worker: 
+    container_name: n8n-worker
+    image: n8nio/n8n:1.51.2
+    command: worker
+    ports:
+      - 5679:5678
+    volumes:
+      - ./n8n-data:/home/node/.n8n
+    environment:
+      - GENERIC_TIMEZONE=America/Salvador
+      - TZ=America/Salvador
+      #- N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+      - N8N_RUNNERS_ENABLED=true
+      - N8N_HOST=unspotlighted-receptively-pearle.ngrok-free.dev
+      - N8N_PROTOCOL=https
+      - WEBHOOK_URL=https://unspotlighted-receptively-pearle.ngrok-free.dev
+
+      ## Postgres
+      - DB_TYPE=postgresdb 
+      - DB_POSTGRESDB_DATABASE=postgres 
+      - DB_POSTGRESDB_HOST=postgres-db  
+      - DB_POSTGRESDB_PORT=5432 
+      - DB_POSTGRESDB_USER=postgres 
+      - DB_POSTGRESDB_PASSWORD=postgres
+
+      ## Queue Mode
+      - EXECUTIONS_MODE=queue
+      - QUEUE_BULL_REDIS_HOST=redis-db
+      - OFFLOAD_MANUAL_EXECUTIONS_TO_WORKERS=true
+    networks:
+      - conexao-n8n
+    depends_on:
+      - postgres-db
+      - redis-db
+    restart: always
+
+  postgres-db:
+    container_name: postgres-db
+    image: ankane/pgvector
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    networks:
+      - conexao-n8n
+    restart: always
+
+  redis-db:
+    container_name: redis-db
+    image: redis:alpine
+    ports:
+      - 6379:6379
+    volumes:
+      - ./redis-data:/data
+    networks:
+      - conexao-n8n
+    restart: always    
+
+  ollama:
+    container_name: ollama
+    image: ollama/ollama:latest
+    ports:
+      - 11434:11434
+    volumes:
+      - ./ollama-data:/root/.ollama
+    networks:
+      - conexao-n8n
+    restart: always
+
+  ngrok:
+    container_name: ngrok  
+    image: ngrok/ngrok:latest
+    ports:
+      - 4040:4040
+    volumes:
+      - ./ngrok.yml:/etc/ngrok.yml
+    command: 
+      - "start"
+      - "--all"
+      - "--config"
+      - "/etc/ngrok.yml"
+    environment:
+      - NGROK_AUTHTOKEN=354RM9NxQfAiKtEbfqa3VAqge0E_2mkZqjgYdUC28NF4jAoaC
+    restart: always  
+    networks:
+      - conexao-n8n
+    depends_on:
+      - n8n
+      - ollama
+
+networks:
+  conexao-n8n:
+    driver: bridge
