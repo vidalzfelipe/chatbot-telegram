@@ -1,5 +1,6 @@
 # 👵 Joelho de Vó – Chatbot de Clima com n8n
 O Joelho de Vó é um chatbot integrado ao Telegram que consulta a previsão do tempo via OpenWeather e responde de forma divertida, simulando as “previsões” do joelho da vovó 👵🌦️.
+Você pode conversar com a vovó através do seguinte link: https://t.me/joelho_de_vo_bot
 
 O fluxo foi desenvolvido no n8n e utiliza:
   - Telegram Trigger
@@ -140,6 +141,7 @@ IA extrai:
 📍 Em Salvador o clima é céu limpo, com temperatura de 28°C.
 👵 “Hoje meu joelho tá quietinho, meu filho… céu firme que é uma beleza!”
 ----------------------------------------------------------------------
+
 
 
 
