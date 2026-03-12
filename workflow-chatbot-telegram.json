@@ -122,7 +122,7 @@
             },
             {
               "name": "appid",
-              "value": "[SUA_APPID_OPENWHEATHER"
+              "value": "[SUA_APPID_OPENWHEATHER]"
             },
             {
               "name": "units",
