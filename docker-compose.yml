@@ -11,9 +11,9 @@ services:
       - TZ=America/Salvador
      # - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
       - N8N_RUNNERS_ENABLED=true
-      - N8N_HOST=unspotlighted-receptively-pearle.ngrok-free.dev
+      - N8N_HOST=[SEU_ENDPOINT_NGROK]
       - N8N_PROTOCOL=https
-      - WEBHOOK_URL=https://unspotlighted-receptively-pearle.ngrok-free.dev
+      - WEBHOOK_URL=[SEU_ENDPOINT_NGROK]
 
       ## Postgres
       - DB_TYPE=postgresdb 
@@ -47,9 +47,9 @@ services:
       - TZ=America/Salvador
       #- N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
       - N8N_RUNNERS_ENABLED=true
-      - N8N_HOST=unspotlighted-receptively-pearle.ngrok-free.dev
+      - N8N_HOST=[SEU_ENDPOINT_NGROK]
       - N8N_PROTOCOL=https
-      - WEBHOOK_URL=https://unspotlighted-receptively-pearle.ngrok-free.dev
+      - WEBHOOK_URL=[SEU_ENDPOINT_NGROK]
 
       ## Postgres
       - DB_TYPE=postgresdb 
@@ -120,7 +120,7 @@ services:
       - "--config"
       - "/etc/ngrok.yml"
     environment:
-      - NGROK_AUTHTOKEN=354RM9NxQfAiKtEbfqa3VAqge0E_2mkZqjgYdUC28NF4jAoaC
+      - NGROK_AUTHTOKEN=[SEU_NGROK_TOKEN]
     restart: always  
     networks:
       - conexao-n8n
