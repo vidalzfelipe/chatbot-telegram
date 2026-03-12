@@ -44,7 +44,7 @@ O fluxo foi desenvolvido no n8n e utiliza:
 - Clique em (...) e em seguida clique em Import From File.
 <img width="362" height="387" alt="image" src="https://github.com/user-attachments/assets/13206099-7369-4a63-a3cf-c4d9bb97f0c4" />
 
-- Procure pelo arquivo workflow-chatbot-telegram.json.json no diretório onde você salvou o arquivo deste git
+- Procure pelo arquivo workflow-chatbot-telegram.json no diretório onde você salvou o arquivo deste git
 - Feito isso, o N8N irá fazer o import deste projeto
 ----------------------------------------------------------------------
 
@@ -140,6 +140,7 @@ IA extrai:
 📍 Em Salvador o clima é céu limpo, com temperatura de 28°C.
 👵 “Hoje meu joelho tá quietinho, meu filho… céu firme que é uma beleza!”
 ----------------------------------------------------------------------
+
 
 
 
